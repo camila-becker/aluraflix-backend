@@ -20,7 +20,7 @@ public class VideoController {
     private VideoService service;
 
     @PostMapping
-    public ResponseEntity<Video> create(@RequestBody @Valid Video request) {
+    public ResponseEntity<Video> create(@RequestBody @Valid final Video request) {
         return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);
     }
 

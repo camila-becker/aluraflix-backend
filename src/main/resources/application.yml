@@ -1,0 +1,14 @@
+server:
+  error:
+    include-message: always
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 102715
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+
