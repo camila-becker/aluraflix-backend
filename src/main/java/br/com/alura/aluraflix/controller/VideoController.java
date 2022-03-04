@@ -32,4 +32,9 @@ public class VideoController {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Video> update(@RequestBody @Valid final Video request, @PathVariable final Long id) {
+        return new ResponseEntity<>(service.update(request, id), HttpStatus.OK);
+    }
+
 }

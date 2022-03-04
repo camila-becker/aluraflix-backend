@@ -28,4 +28,18 @@ public class VideoService {
         return this.repository.findAll();
     }
 
+    public Video update(Video request, Long id) {
+        return this.repository.save(setVideoToUpdate(request, id));
+    }
+
+    private Video setVideoToUpdate(Video request, Long id) {
+        Video videoToUpdate = findById(id);
+
+        videoToUpdate.setDescription(request.getDescription());
+        videoToUpdate.setTitle(request.getTitle());
+        videoToUpdate.setUrl(request.getUrl());
+
+        return videoToUpdate;
+    }
+
 }
