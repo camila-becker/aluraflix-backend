@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/videos")
@@ -24,6 +25,11 @@ public class VideoController {
     @GetMapping("{id}")
     public ResponseEntity<Video> findById(@PathVariable final Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Video>> findAll(){
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
 }

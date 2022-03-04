@@ -6,6 +6,8 @@ import br.com.alura.aluraflix.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VideoService {
 
@@ -20,6 +22,10 @@ public class VideoService {
     public Video findById(Long id) {
         return this.repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vídeo não encontrado!"));
+    }
+
+    public List<Video> findAll() {
+        return this.repository.findAll();
     }
 
 }
