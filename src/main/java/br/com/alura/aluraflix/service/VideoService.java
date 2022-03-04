@@ -1,6 +1,7 @@
 package br.com.alura.aluraflix.service;
 
 import br.com.alura.aluraflix.domain.Video;
+import br.com.alura.aluraflix.enums.ActiveFlagEnum;
 import br.com.alura.aluraflix.exceptions.ResourceNotFoundException;
 import br.com.alura.aluraflix.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class VideoService {
     private VideoRepository repository;
 
     public Video create(Video request) {
+        request.setActiveFlag(ActiveFlagEnum.YES);
         return this.repository.save(request);
     }
 
@@ -30,6 +32,12 @@ public class VideoService {
 
     public Video update(Video request, Long id) {
         return this.repository.save(setVideoToUpdate(request, id));
+    }
+
+    public void delete(Long id) {
+        Video video = findById(id);
+        video.setActiveFlag(ActiveFlagEnum.NO);
+        this.repository.save(video);
     }
 
     private Video setVideoToUpdate(Video request, Long id) {
