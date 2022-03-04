@@ -1,7 +1,7 @@
 package br.com.alura.aluraflix.domain;
 
 import br.com.alura.aluraflix.enums.ActiveFlagEnum;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -30,6 +30,7 @@ public class Video {
     @URL(message = "A URL informada é inválida!")
     private String url;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Enumerated(EnumType.STRING)
     private ActiveFlagEnum activeFlag;
 

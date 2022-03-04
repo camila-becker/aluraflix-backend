@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoService {
@@ -22,12 +24,18 @@ public class VideoService {
     }
 
     public Video findById(Long id) {
-        return this.repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Vídeo não encontrado!"));
+        Optional<Video> video = this.repository.findById(id);
+
+        if(video.isPresent() && ActiveFlagEnum.NO.equals(video.get().getActiveFlag())) {
+            throw new ResourceNotFoundException("Vídeo não encontrado!");
+        }
+
+        return video.orElseThrow(() -> new ResourceNotFoundException("Vídeo não encontrado!"));
     }
 
     public List<Video> findAll() {
-        return this.repository.findAll();
+        return this.repository.findAll().stream().filter(video -> ActiveFlagEnum.YES.equals(video.getActiveFlag()))
+                .collect(Collectors.toList());
     }
 
     public Video update(Video request, Long id) {
